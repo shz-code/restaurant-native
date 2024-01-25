@@ -1,11 +1,11 @@
-import { Text, View } from "react-native"
+import { Text, View } from "react-native";
 
 const DishDetails = () => {
   return (
     <View>
-        <Text>DishDetails</Text>
+      <Text>DishDetails</Text>
     </View>
-  )
-}
+  );
+};
 
-export default DishDetails
+export default DishDetails;
