@@ -1,6 +1,11 @@
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import {
+  DrawerContentScrollView,
+  DrawerItemList,
+  createDrawerNavigator,
+} from "@react-navigation/drawer";
 import { useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Text, View } from "react-native";
 import Icon from "./components/ui/Icon";
 import DishDetails from "./screens/DishDetails";
 import HomeScreen from "./screens/HomeScreen";
@@ -8,6 +13,26 @@ import MenuScreen from "./screens/MenuScreen";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
+
+function CustomDrawerContent(props) {
+  return (
+    <DrawerContentScrollView {...props}>
+      <View
+        style={{
+          padding: 20,
+          flex: 1,
+          alignItems: "center",
+        }}
+      >
+        <Icon name="restaurant-sharp" color="#F53B58" size={32} />
+        <Text style={{ textAlign: "center", fontWeight: "bold", marginTop: 5 }}>
+          Restaurant - Native
+        </Text>
+      </View>
+      <DrawerItemList {...props} />
+    </DrawerContentScrollView>
+  );
+}
 
 const MenuStack = () => {
   const navigation = useNavigation();
@@ -21,7 +46,13 @@ const MenuStack = () => {
         headerTitleStyle: {
           fontWeight: "bold",
         },
-        headerRight: () => <Icon onPress={() => navigation.toggleDrawer()} />,
+        headerRight: () => (
+          <Icon
+            name="menu-sharp"
+            color="#fff"
+            action={() => navigation.toggleDrawer()}
+          />
+        ),
       }}
     >
       <Stack.Screen
@@ -40,12 +71,28 @@ const MenuStack = () => {
 const AppNavigator = () => {
   return (
     <Drawer.Navigator
-      screenOptions={{ headerShown: false }}
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
+      screenOptions={{
+        headerShown: false,
+        drawerActiveTintColor: "#F53B58",
+        drawerPosition: "right",
+        drawerItemStyle: {
+          alignItems: "center",
+        },
+      }}
       initialRouteName="Menu"
     >
-      <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen
-        options={{ drawerIcon: () => <Icon /> }}
+        options={{
+          drawerIcon: () => <Icon name="home-outline" />,
+        }}
+        name="Home"
+        component={HomeScreen}
+      />
+      <Drawer.Screen
+        options={{
+          drawerIcon: () => <Icon name="fast-food-outline" />,
+        }}
         name="Menu"
         component={MenuStack}
       />

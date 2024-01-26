@@ -10,7 +10,7 @@ import {
 const MenuItem = ({ item, onPress }) => {
   const { name, description, image } = item.item;
   return (
-    <TouchableHighlight onPress={onPress}>
+    <TouchableHighlight onPress={onPress} underlayColor="#DDDDDD">
       <View style={styles.container}>
         {image && <Image source={{ uri: image }} style={styles.image} />}
         <View style={styles.details}>

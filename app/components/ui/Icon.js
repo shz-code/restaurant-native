@@ -1,19 +1,16 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
-export default function Icon({ onPress }) {
+export default function Icon({ name, color, action, size }) {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Ionicons name="checkmark-done" size={24} color="white" />
+    <TouchableOpacity style={styles.container} onPress={action}>
+      <Ionicons name={name} size={size ? size : 24} color={color} />
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
     paddingRight: 10,
   },
 });
